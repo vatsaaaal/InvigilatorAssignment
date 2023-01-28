@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Automatic Assigner
+{% endblock title %}
+
+{% block rooms %}
+    <a class="nav-item nav-link active" href="{% url 'rooms' %}">Rooms</a>
+{% endblock rooms %}
+
+{% block home %}
+    <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
+{% endblock home %}
+
+{% block content %}
+  <section class="jumbotron">
+    <div class="container">
+      <h1 class="jumbotron-heading text-center">Rooms</h1>
+      <p class="lead text-muted text-center">Click on any room for details.</p>
+      <hr>
+      <form method="POST" id="search" action="{% url 'search' %}">
+        {% csrf_token %}
+        <div class="row">
+          <input style="margin: auto;" name="search" class="form-control col-7" type="text" placeholder="Search">
+          <button style="margin: auto;" type="submit" class="btn btn-primary btn-block col-3">Search</button>
+        </div>
+      </form>
+      <hr>
+      <a href="{% url 'add' %}"><button class="btn btn-primary btn-block">Add Room</button></a>
+      <hr>
+        {% for room in rooms.all %}
+          <a href="{% url 'detail' room.id %}" class="text-formatting">Number: {{ room.number }}; Capacity: {{ room.capacity }}</a>
+          <hr>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endblock content %}

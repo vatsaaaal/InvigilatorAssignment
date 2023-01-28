@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Manual Assigner
+{% endblock title %}
+
+{% block assign %}
+  <a class="nav-item nav-link active" href="{% url 'ahome' %}">Assign</a>
+{% endblock assign %}
+
+{% block home %}
+  <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
+{% endblock home %}
+
+{% block content %}
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">Manual Assigner</h1>
+    </div>
+  </section>
+
+  <div class="container">
+      <h2>How many Invigilators would you like to assign?</h2>
+      <hr>
+      <form style="margin-bottom: 20px;" method="POST" action="{% url 'manual' %}">
+        {% csrf_token %}  
+        <div class="form-row align-items-center">
+            <div class="col-auto">
+              <input type="text" class="form-control mb-2" name="number" placeholder="Number">
+            </div>
+            <div class="col-auto">
+              <button type="submit" class="btn btn-primary mb-2">Enter</button>
+            </div>
+        </div>
+      </form>
+
+      <form method="POST" action="{% url 'assigned'  %}">
+        {% csrf_token %}
+          {% for num in num_list %}
+          <div style="margin-bottom: 50px;" class="form-row">
+              <label style="margin-right: 50px;" for="subjects"><strong>Exam {{ num }}.</strong></label>
+              <select class="mb-2" style="margin-right: 50px;" name="subject{{ num }}" id="subjects">
+                {% for subject in subjects.all %}
+                  <option value="{{ subject.subject }}">{{ subject.subject }}</option>
+                {% endfor %}
+              </select>
+              <label style="margin-right: 50px;" for="teachers"><strong>Teacher</strong></label>
+              <select class="mb-2" style="margin-right: 50px;" name="teacher{{ num }}" id="teachers">
+                {% for teacher in teachers.all %}
+                  <option value="{{ teacher }}">{{ teacher }}</option>
+                {% endfor %}
+              </select>
+          </div>
+          {% endfor %}
+          {% if num_list %}
+            <button type="submit" class="btn btn-primary btn-block">Generate List</button>
+          {% endif %}
+      </form>
+  </div>   
+
+{% endblock content %}

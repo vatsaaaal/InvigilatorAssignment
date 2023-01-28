@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Teachers
+{% endblock title %}
+
+{% block teachers %}
+  <a class="nav-item nav-link active" href="{% url 'thome' %}">Teachers</a>
+{% endblock teachers %}
+
+{% block home %}
+  <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
+{% endblock home %}
+
+{% block content %}
+<section class="jumbotron">
+  <div class="container">
+    <h1 class="jumbotron-heading text-center">Add a new Teacher</h1>
+    <hr>
+    <div class="container">
+      <form method="POST" action="{% url 'add' %}">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="inputName">Name</label>
+          <input type="text" class="form-control" id="inputName" name="name">
+        </div>
+        <div class="form-group">
+          <label for="inputSubject">Subject</label>
+          <input type="text" class="form-control" id="inputSubject" name="subject">
+        </div>
+        <div class="form-group">
+          <label for="inputEmail">Email</label>
+          <input type="email" class="form-control" id="inputEmail" name="email">
+        </div>
+        {% if error %}
+          <div class="form-group form-check">
+            <label style="color: red;" class="" for="exampleCheck1">{{ error }}</label>
+          </div>
+        {% endif %}
+        <button type="submit" class="btn btn-primary btn-block">ADD</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+  
+{% endblock content %}

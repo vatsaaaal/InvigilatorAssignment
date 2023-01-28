@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Teachers
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/teachers_home_style.css' %}">
+{% endblock %}
+
+{% block teachers %}
+  <a class="nav-item nav-link active" href="{% url 'thome' %}">Teachers</a>
+{% endblock teachers %}
+
+{% block home %}
+  <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
+{% endblock home %}
+
+{% block content %}
+  <section class="jumbotron">
+    <div class="container">
+      <h3 class="jumbotron-heading text-center">Here are your results</h3>
+      <hr>
+      <form method="POST" id="search" action="{% url 'search' %}">
+        {% csrf_token %}
+        <div class="row">
+          <input style="margin: auto;" name="search" class="form-control col-7" type="text" placeholder="Search">
+          <button style="margin: auto;" type="submit" class="btn btn-primary btn-block col-3">Search</button>
+        </div>
+      </form>
+      <hr>
+    {% for teacher in match.all %}
+        <a href="{% url 'detail' teacher.id %}" class="text-formatting">{{ teacher }} - {{ teacher.subject }}</a>
+        <hr>
+    {% endfor %}
+    </div>
+  </section>
+{% endblock content %}

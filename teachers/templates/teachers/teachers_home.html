@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Teachers
+{% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/teachers_home_style.css' %}">
+{% endblock %}
+
+{% block teachers %}
+  <a class="nav-item nav-link active" href="{% url 'thome' %}">Teachers</a>
+{% endblock teachers %}
+
+{% block home %}
+  <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
+{% endblock home %}
+
+{% block content %}
+  <section class="jumbotron">
+    <div class="container">
+      <h1 class="jumbotron-heading text-center">Teachers</h1>
+      <p class="lead text-muted text-center">Click on any teacher for details.</p>
+      <hr>
+      <form method="POST" id="search" action="{% url 'search' %}">
+        {% csrf_token %}
+        <div class="row">
+          <input style="margin: auto;" name="search" class="form-control col-7" type="text" placeholder="Search">
+          <button style="margin: auto;" type="submit" class="btn btn-primary btn-block col-3">Search</button>
+        </div>
+      </form>
+      <hr>
+      <a href="{% url 'add' %}"><button class="btn btn-primary btn-block">Add Teacher</button></a>
+      <hr>
+        {% for teacher in teachers.all %}
+          <a href="{% url 'detail' teacher.id %}" class="text-formatting">{{ teacher }} - {{ teacher.subject }}</a>
+          <hr>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endblock content %}

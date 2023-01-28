@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+{{ past_list.date }}
+{% endblock title %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock css %}
+
+{% block assign %}
+  <a class="nav-item nav-link active" href="{% url 'ahome' %}">Assign</a>
+{% endblock assign %}
+
+{% block home %}
+  <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
+{% endblock home %}
+
+{% block content %}
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">{{ past_list.date }}</h1>
+    </div>
+  </section>
+  <div class="container">
+    <table class="table">
+      <thead>
+          <tr>
+              <th>Subject</th>
+              <th>Duration</th>
+              <th>Start Time</th>
+              <th>End Time</th>
+              <th>Number of Students</th>
+              <th>Room No. : Capacity</th>
+              <th>Invigilator</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for x in data %}
+          <tr>
+            {% for y in x %}
+              <td>{{ y }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+    <input type="button" id="btnprint" class="btn btn-primary btn-block" value="Print" onclick="print_page()" />
+  </div>
+    
+{% endblock content %}

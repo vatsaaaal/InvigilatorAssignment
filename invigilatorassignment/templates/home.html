@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block content %}
+    <section class="jumbotron text-center">
+        <div class="container">
+            <h1 class="jumbotron-heading">Hi, this is the Invigilator Assigner.</h1>
+            <p class="lead text-muted">Assign invigilators with a click of a button.</p>
+            <p>
+                <a href="{% url 'ahome' %}" class="btn btn-primary my-2">Assign</a>
+            </p>
+        </div>
+    </section>
+
+    <div class="container">
+        <h3>Past Assigned Lists</h3>
+        <hr class="my-4">
+        {% for item in past_list.all %}
+            <a style="text-decoration: none;" href="{% url 'list_detail' item.id %}"><button class="btn btn-outline-primary btn-block">{{ item.date }}</button></a>
+            <br>
+        {% endfor %}
+    </div>
+    
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} <div class="container">
+        <div class="jumbotron text-center">
+            <table class="table">
+                {% for rows in timetable %}
+                    <tr>
+                        {% for value in rows %}
+                            <th scope="col">{{ value }}</th>                        
+                        {% endfor %}
+                    </tr>
+            {% endfor %}
+            </table>
+        </div>
+    </div> {% endcomment %}

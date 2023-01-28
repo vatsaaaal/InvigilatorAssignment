@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Assinged List 
+{% endblock title %}
+
+{% block assign %}
+  <a class="nav-item nav-link active" href="{% url 'ahome' %}">Assign</a>
+{% endblock assign %}
+
+{% block home %}
+  <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
+{% endblock home %}
+
+{% block content %}
+
+    {% for subject, teacher in sub_teacher %}
+        <p>{{ subject }}</p>
+        <p>{{ teacher }}</p>
+    {% endfor %}
+
+{% endblock content %}

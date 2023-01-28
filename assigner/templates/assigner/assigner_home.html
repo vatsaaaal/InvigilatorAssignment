@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Assigner
+{% endblock title %}
+
+{% block assign %}
+  <a class="nav-item nav-link active" href="{% url 'ahome' %}">Assign</a>
+{% endblock assign %}
+
+{% block home %}
+  <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
+{% endblock home %}
+
+{% block content %}
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">Assign Invigilators</h1>
+    </div>
+  </section>
+
+  <div class="container">
+        {% if list %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Subject</th>
+                        <th>Duration</th>
+                        <th>Start Time</th>
+                        <th>End Time</th>
+                        <th>Number of Students</th>
+                        <th>Room No. : Capacity</th>
+                        <th>Invigilator</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for x in data %}
+                    <tr>
+                        {% for y in x %}
+                            <td>{{ y }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <h2>Please upload the Exam Schedule</h2>
+            <hr>
+            <form method="POST" action="{% url 'automatic' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" name="schedule">
+                <button type="submit">Upload</button>
+            </form>
+        {% endif %}
+    </div>
+
+{% endblock content %}

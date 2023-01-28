@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Automatic Assigner
+{% endblock title %}
+
+{% block rooms %}
+    <a class="nav-item nav-link active" href="{% url 'rooms' %}">Rooms</a>
+{% endblock rooms %}
+
+{% block home %}
+    <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
+{% endblock home %}
+
+{% block content %}
+  <div class="jumbotron">
+    <div class="container">
+      <h2>{{ room.number }}</h2>
+      <hr>
+      <div class="row">
+        <h4 class="col-7">Capacity - {{ room.capacity }}</h4>
+        <a href="{% url 'edit' room.id %}" style="text-decoration: none; color: white;"><button style="margin-right: auto;" type="submit" class="btn btn-primary col-2">Edit</a>
+        <a href="javascript:{document.getElementById('delete').submit()}" style="text-decoration: none; color: white;"><button type="submit" class="btn btn-danger col-2">Delete</a>
+      </div>
+    </div>
+  </div>
+
+
+
+  <form id="delete" method="POST" action="{% url 'delete' room.id %}">
+    {% csrf_token %}
+    <input type="hidden" >
+  </form>
+
+{% endblock content %}

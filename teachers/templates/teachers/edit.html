@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Teachers
+{% endblock title %}
+
+{% block teachers %}
+  <a class="nav-item nav-link active" href="{% url 'thome' %}">Teachers</a>
+{% endblock teachers %}
+
+{% block home %}
+  <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
+{% endblock home %}
+
+{% block content %}
+<section class="jumbotron">
+  <div class="container">
+    <h1 class="jumbotron-heading text-center">Edit details for {{ teacher }}</h1>
+    <hr>
+    <div class="container">
+      <form method="POST" action="{% url 'edit' teacher.id %}">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="inputName">Name</label>
+            <input type="text" class="form-control" id="inputName" name='name' value="{{ teacher.name }}">
+          </div>
+          <div class="form-group">
+            <label for="inputSubject">Subject</label>
+            <input type="text" class="form-control" name="subject" id="inputSubject" value="{{ teacher.subject }}">
+          </div>
+          <div class="form-group">
+            <label for="inputEmail">Email</label>
+            <input type="email" name="email" class="form-control" id="inputEmail" value="{{ teacher.email }}">
+          </div>
+          {% if error %}
+            <div class="form-group form-check">
+                <label style="color: red;" >{{ error }}</label>
+            </div>
+          {% endif %}
+          <button type="submit" class="btn btn-primary btn-block">CONFIRM EDIT</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+  
+{% endblock content %}
